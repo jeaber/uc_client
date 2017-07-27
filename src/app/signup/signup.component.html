@@ -1,0 +1,206 @@
+<section class="signup">
+	<div class='signupContainer inner-container'>
+		<div class="progress-bar">
+			<div class="progress-item progress-account">Account
+				<div class="progress-detail" [ngClass]="{'progress-active': formOpened === 'accountForm'}"></div>
+			</div>
+			<div class="progress-item progress-contact">Contact
+				<div class="progress-detail" [ngClass]="{'progress-active': formOpened === 'contactForm'}"></div>
+			</div>
+			<div class="progress-item progress-funding">Funding
+				<div class="progress-detail" [ngClass]="{'progress-active': formOpened === 'fundingForm'}"></div>
+			</div>
+		</div>
+		<!--*ngIf="formOpened === 'accountForm'"-->
+		<div class="forms">
+			<form [@formState]="formState('account')" [ngClass]="{'form-active': formOpened === 'accountForm'}" class="validationIndicators"
+			 [formGroup]="accountForm" (submit)="submitAccount()">
+				<h4>Create your account</h4>
+				<div>
+					<md-input-container class="column-half" style="margin: 0" required>
+						<input formControlName="firstname" mdInput type="text" placeholder="First Name" required>
+					</md-input-container>
+					<md-input-container class="column-half" style="margin: 0" required>
+						<input formControlName="lastname" mdInput type="text" placeholder="Last Name" required>
+					</md-input-container>
+				</div>
+				<md-input-container style="margin: 0" required>
+					<input formControlName="email" mdInput type="email" placeholder="Email" required>
+				</md-input-container>
+				<md-input-container style="margin: 0" required>
+					<input #password formControlName="password" mdInput type="password" placeholder="Password" required>
+					<md-hint align="end">
+						<span [hidden]="password.valid || password.pristine">{{password.value.length}} / 8</span>
+						<span [hidden]="password.valid || password.pristine || passwordValidateNumber(password.value)">Contains a number</span>
+					</md-hint>
+				</md-input-container>
+				<md-input-container style="margin: 0" required>
+					<input formControlName="confirmPassword" mdInput type="password" placeholder="Confirm password" required>
+				</md-input-container>
+
+				<md-checkbox [checked]="ageAccepted" (change)="ageAccepted = $event.checked">
+					I am a U.S. Resident, age 18 or older
+				</md-checkbox>
+				<md-checkbox [checked]="tosAccepted" (change)="tosAccepted = $event.checked">
+					I agree to the <a href="">Program Agreement</a>
+				</md-checkbox>
+
+				<button class="btn" md-raised-button color="primary" type="submit" [disabled]="!accountForm.valid || !ageAccepted || !tosAccepted">
+				Continue
+			</button>
+			</form>
+			<!--*ngIf="formOpened === 'contactForm'"-->
+			<form [@formState]="formState('contact')" [ngClass]="{'form-active': formOpened === 'contactForm'}" class="validationIndicators"
+			 [formGroup]="contactForm" (submit)="submitContact()">
+				<h4>Contact Details</h4>
+				<div>
+					<md-input-container class="column-half" style="margin: 0" required>
+						<input formControlName="streetAddress" mdInput type="text" placeholder="Street Address" required>
+					</md-input-container>
+					<md-input-container class="column-half" style="margin: 0" required>
+						<input formControlName="city" mdInput type="text" placeholder="City" required>
+					</md-input-container>
+				</div>
+				<div>
+					<md-input-container style="margin: 0" class="stateContact" required>
+						<input formControlName="state" mdInput type="text" placeholder="State" required>
+					</md-input-container>
+					<md-input-container style="margin: 0" class="postalContact" required>
+						<input formControlName="postalCode" mdInput type="text" placeholder="Zip Code" required>
+					</md-input-container>
+				</div>
+				<md-input-container style="margin: 0" required>
+					<input formControlName="phone" mdInput type="phone" placeholder="Phone" required>
+				</md-input-container>
+
+				<button class="btn" md-raised-button color="primary" type="submit" [disabled]="!contactForm.valid">
+				Continue
+			</button>
+			</form>
+			<!--*ngIf="formOpened === 'fundingForm'"-->
+			<form [@formState]="formState('funding')" [ngClass]="{'form-active': formOpened === 'fundingForm'}" class="validationIndicators"
+			 [formGroup]="fundingForm" (submit)="submitFunding()">
+				<h4>Fund your account</h4>
+				<md-radio-group formControlName="accountType">
+					<md-radio-button class="column-half" value="checkings">
+						Checkings
+					</md-radio-button>
+					<md-radio-button class="column-half" value="savings">
+						Savings
+					</md-radio-button>
+				</md-radio-group>
+				<div>
+					<md-input-container class="column-half" style="margin: 0" required>
+						<input formControlName="accountNumber" mdInput type="string" placeholder="Account Number" required>
+					</md-input-container>
+					<md-input-container class="column-half" style="margin: 0" required>
+						<input formControlName="routingNumber" mdInput type="string" placeholder="Routing Number" required>
+					</md-input-container>
+				</div>
+				<p style="margin-bottom:0">I authorize Upcrue Financial LLC to electronically debit my account and, if necessary, electronically credit my account
+					to correct erroneous debits.</p>
+				<button class="btn" md-raised-button color="primary" type="submit" [disabled]="!fundingForm.valid">
+				Submit
+			</button>
+			</form>
+			<div *ngIf="formOpened === 'fundingForm'">
+
+			</div>
+		</div>
+
+	</div>
+</section>
+<!--
+		<div class="controls">
+			<md-input formControlName="lastName" type="text" placeholder="Last Name" required></md-input>
+			<md-input formControlName="email" type="email" placeholder="Email" required></md-input>
+			<md-input formControlName="ssn" type="string" placeholder="Last 4 of SSN" required></md-input>
+			<md-input formControlName="dateOfBirth" type="text" placeholder="Date of Birth" required>
+				<md-hint align="end">(YYYY-MM-DD)</md-hint>
+			</md-input>
+			<md-input formControlName="phone" type="phone" placeholder="Phone" required></md-input>
+			<div class="address-block">
+				<md-input formControlName="streetAddress" type="text" placeholder="Street Address" required></md-input>
+				<md-input formControlName="locality" type="text" placeholder="City" required></md-input>
+				<md-input formControlName="region" type="text" placeholder="State" required>
+					<md-hint align="end">(2 Letter Abbreviation)</md-hint>
+				</md-input>
+				<md-input formControlName="postalCode" type="string" placeholder="Zip Code" required></md-input>
+			</div>
+			<button md-raised-button type="submit" [disabled]="!individualForm.valid">Next</button>
+		</div>
+
+		<form *ngSwitchDefault class="validationIndicators" [formGroup]="personalForm" (submit)="formOpened = 'funding'">
+			<h4>Individual Information</h4>
+
+			<div class="controls">
+				<md-input formControlName="firstName" type="text" placeholder="First Name" required></md-input>
+				<md-input formControlName="lastName" type="text" placeholder="Last Name" required></md-input>
+				<md-input formControlName="email" type="email" placeholder="Email" required></md-input>
+				<md-input formControlName="ssn" type="string" placeholder="Last 4 of SSN" required></md-input>
+				<md-input formControlName="dateOfBirth" type="text" placeholder="Date of Birth" required>
+					<md-hint align="end">(YYYY-MM-DD)</md-hint>
+				</md-input>
+				<md-input formControlName="phone" type="phone" placeholder="Phone" required></md-input>
+				<div class="address-block">
+					<md-input formControlName="streetAddress" type="text" placeholder="Street Address" required></md-input>
+					<md-input formControlName="locality" type="text" placeholder="City" required></md-input>
+					<md-input formControlName="region" type="text" placeholder="State" required>
+						<md-hint align="end">(2 Letter Abbreviation)</md-hint>
+					</md-input>
+					<md-input formControlName="postalCode" type="string" placeholder="Zip Code" required></md-input>
+				</div>
+				<button md-raised-button type="submit" [disabled]="!individualForm.valid">Next</button>
+			</div>
+		</form>
+
+		<form class="validationIndicators controls" *ngSwitchCase="'funding'" [formGroup]="fundingForm" (submit)="formOpened = 'tos';">
+			<section>
+				<div style="margin:0 auto;text-align:center;margin-bottom:2em;">
+					<h5>Disperse payments to</h5>
+				</div>
+				<div>
+					<div *ngIf="bank">
+						<md-input class="required" formControlName="accountNumber" type="string" placeholder="Account Number"></md-input>
+						<md-input class="required" formControlName="routingNumber" type="string" placeholder="Routing Number"></md-input>
+					</div>
+					<md-input *ngIf="venmoPhone" class="required" formControlName="venmoPhone" type="phone" placeholder="Venmo Phone"></md-input>
+					<md-input *ngIf="venmoEmail" class="required" formControlName="venmoEmail" type="email" placeholder="Venmo Email"></md-input>
+				</div>
+				<br><span>Or disperse to</span><br>
+				<button *ngIf="!bank" md-button (click)="(bank = !bank) && (venmoEmail = false) && (venmoPhone = false)">Bank Account</button>
+				<button *ngIf="!venmoEmail" md-button (click)="(venmoEmail = !venmo) && (bank = false) && (venmoPhone = false)">Venmo Email</button>
+				<button *ngIf="!venmoPhone" md-button (click)="(venmoPhone = !venmo) && (bank = false) && (venmoEmail = false)">Venmo Phone Number</button>
+
+				<div class="clearboth"></div>
+				<button md-raised-button type="submit" [disabled]="fundingValid()">Next</button>
+			</section>
+
+		</form>
+		<form *ngSwitchCase="'tos'" class="validationIndicators controls" (submit)="formOpened = 'submitted'">
+			<h4>Terms of Service</h4>
+			<p>Financial institutions play an important role in Planetrader's network.</p>
+			<p>
+				Planestrader uses Braintree, a division of PayPal, Inc. (Braintree) for payment processing services. By using the Braintree
+				payment processing services you agree to the
+				<a href='https://www.braintreepayments.com/legal/gateway-agreement'>Braintree Payment Services Agreement.</a>, and the
+				<a href='https://www.braintreepayments.com/legal/cea-wells'>applicable bank agreement</a>.
+			</p>
+			<md-checkbox [checked]="tosAccepted" (change)="tosAccepted = $event.checked">
+				I agree to Planestrader's and partner(s) Terms of Service.
+			</md-checkbox>
+			<button md-raised-button color="primary" type="submit" [disabled]="!tosAccepted" (click)="createAccount()">Create Account</button>
+		</form>
+
+		<section *ngSwitchCase="'submitted'" class="clearboth">
+			<div *ngIf="!submitMessage.body" class="large center">
+				<i class="fa fa-spin fa-spinner" aria-hidden="true"></i>
+			</div>
+			<h4>{{submitMessage.header}}</h4>
+			<p>
+				{{submitMessage.body}}
+			</p>
+
+			<button md-raised-button *ngIf="submitMessage.header === 'Error'" type="submit" (click)="formOpened = 'individual'">Look over form</button>
+
+		</section>-->

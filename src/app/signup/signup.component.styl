@@ -1,0 +1,55 @@
+/*styles for home content only*/
+@import '~jeet/styl/index.styl'
+@import '~rupture/rupture/index.styl'
+@import './../app.component.styl'
+
+.signupContainer
+	margin 0 auto
+	width 20em
+	form
+		width 100%
+		display block
+		clear both
+	md-input-container
+		column(1)
+	button
+		margin-top 1em
+		column(1)
+	md-checkbox
+		font-size .8em
+	+below(1)
+		h1,h2,h3,h4,h5
+			text-align center
+		button
+			margin-top 2em
+			column(1)
+.progress-bar
+	width 100%
+	height 1em
+	margin-top: 1em
+	.progress-item
+		column(1/3)
+		text-align center
+		.progress-detail
+			width 100%
+			height .2em
+			border-radius 5%
+			background-color lightgrey
+.progress-active
+	background-color color-secondary !important
+	height 100%
+	width 100%
+.stateContact
+	column(2/3)
+.postalContact
+	column(1/3)
+.forms
+	position absolute
+	width 20em
+form
+	z-index 0
+	position absolute
+.form-active
+	z-index 1
+h4
+	margin-bottom .2em

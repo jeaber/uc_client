@@ -1,0 +1,17 @@
+<section class="dashboard">
+	<div>
+		<h3>Next Steps</h3>
+		<h5>Verify your email</h5>
+		<md-input-container style="margin: 0" required>
+			<input [(ngModel)]="emailPin" mdInput type="string" placeholder="Enter the PIN we emailed you" required>
+		</md-input-container>
+		<h5>Verify your bank</h5>
+		<p>Enter the 2 micro deposits we scheduled</p>
+		<md-input-container class="column-half" style="margin: 0" required>
+			<input [(ngModel)]="bankDepositOne" mdInput type="string" placeholder="First Deposit" required>
+		</md-input-container>
+		<md-input-container class="column-half" style="margin: 0" required>
+			<input [(ngModel)]="bankDepositTne" mdInput type="string" placeholder="Second Deposit" required>
+		</md-input-container>
+	</div>
+</section>

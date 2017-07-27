@@ -1,0 +1,15 @@
+<section class="login">
+	<div class="loginContainer inner-container">
+		<form (submit)="login($event)" [formGroup]="authForm">
+			<md-input-container>
+				<input mdInput formControlName="email" placeholder="Email" type="email">
+			</md-input-container>
+			<md-input-container style="margin: 0">
+				<input formControlName="password" mdInput type="password" placeholder="Password">
+			</md-input-container>
+			<button class="btn" md-raised-button color="primary" type="submit" [disabled]="authForm.value.email.length === 0 || authForm.value.password.length === 0 || submitted">
+				Login
+			</button>
+		</form>
+	</div>
+</section>

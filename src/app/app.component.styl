@@ -1,0 +1,86 @@
+@import '~jeet/styl/index.styl'
+@import '~rupture/rupture/index.styl'
+//colors
+color-dark = #2d2d2d
+color-primary = #3277FF
+color-secondary = #531363
+color-light3 = #91AA9D
+color-light2 = #D1DBBD
+color-light1 = #FCFFF5
+color-white = #FCFFF5
+color-valid = #42A948
+color-invalid = #a94442
+
+html, body{
+  margin 0
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+.inner-container
+  width 55em
+  margin 0 auto
+  +below(5)
+    width 50em
+  +below(3)
+    width 40em
+  +below(1)
+    width 90%
+    padding 0 5%
+.upcrue
+  font-family: 'Dosis', sans-serif !important;
+  color #2d2d2d
+h1,h2,h3,h4,h5,p,span,button
+  font-family: 'Open Sans', sans-serif;
+h1,p
+  font-weight 300
+  color color-dark
+.pull-right
+  float right
+.pull-left
+  float left
+
+a.active {
+  background-color:#531363;
+  background-color:#2196f3;
+}
+.btn
+  background-color:#2196f3;
+  color white !important
+  font-size 1em
+  transition all .2s ease
+  font-weight 700
+  text-align center !important
+.btn:hover
+  color white
+  background-color #1976D2
+  cursor pointer
+  
+.btn-invert
+  background-color white
+  font-weight 700
+  color:#2196f3
+  border none
+  transition all .5s ease
+  font-size 1em
+  text-align center !important
+  
+.btn-invert:hover
+  color #5d5d5d
+  cursor pointer
+.column-half
+  column(1/2)
+.validationIndicators
+	.ng-invalid.ng-dirty
+		label
+			color color-invalid !important
+		.md-input-underline
+			border-top 1px solid color-invalid !important
+		.md-placeholder-required
+			color color-invalid !important
+	.ng-valid[required].ng-dirty, .ng-valid.required.ng-dirty
+		label
+			color color-valid !important
+		.md-input-underline
+			border-top 1px solid color-valid !important
+		.md-placeholder-required
+			color color-valid !important
