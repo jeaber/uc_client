@@ -1,17 +1,32 @@
 <section class="dashboard">
-	<div>
+	<div class='dashboardContainer inner-container'>
 		<h3>Next Steps</h3>
-		<h5>Verify your email</h5>
-		<md-input-container style="margin: 0" required>
-			<input [(ngModel)]="emailPin" mdInput type="string" placeholder="Enter the PIN we emailed you" required>
-		</md-input-container>
+		
+		<form [formGroup]="emailVerifyForm" (submit)="verifyEmail()">
+			<h5>Verify your email</h5>
+			<div>
+				<md-input-container style="margin: 0" required>
+					<input formControlName="pin" mdInput type="string" placeholder="6 Digit Pin" required>
+				</md-input-container>
+			</div>
+			<button class="btn" md-raised-button color="primary" type="submit" [disabled]="!emailVerifyForm.valid">
+				Submit
+			</button>
+		</form>
+
+
+
+
+
+
+
 		<h5>Verify your bank</h5>
-		<p>Enter the 2 micro deposits we scheduled</p>
+		<p>Enter the 2 micro deposits. They should appear in your bank account activity.</p>
 		<md-input-container class="column-half" style="margin: 0" required>
 			<input [(ngModel)]="bankDepositOne" mdInput type="string" placeholder="First Deposit" required>
 		</md-input-container>
 		<md-input-container class="column-half" style="margin: 0" required>
-			<input [(ngModel)]="bankDepositTne" mdInput type="string" placeholder="Second Deposit" required>
+			<input [(ngModel)]="bankDepositTwo" mdInput type="string" placeholder="Second Deposit" required>
 		</md-input-container>
 	</div>
 </section>

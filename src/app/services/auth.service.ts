@@ -27,10 +27,10 @@ export class AuthService implements CanActivate {
 	}
 	public login(email, password) {
 		// Mock login
-		console.log("AUTHSERVICE.login()", email, password);
+/*		console.log("AUTHSERVICE.login()", email, password);
 		this._isAuth = true;
 		this._auth$.next(this._isAuth);		
-		this.router.navigate(['/dashboard']);
+		this.router.navigate(['/dashboard']);*/
 		//	
 		this.io.socket.emit('auth', { email, password });
 	}
