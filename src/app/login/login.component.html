@@ -1,15 +1,21 @@
 <section class="login">
 	<div class="loginContainer inner-container">
-		<form (submit)="login($event)" [formGroup]="authForm">
+		<form [@formState]="state" [ngClass]="{'form-active': formOpened === 'accountForm'}" (submit)="login($event)" [formGroup]="authForm">
 			<md-input-container>
 				<input mdInput formControlName="email" placeholder="Email" type="email">
 			</md-input-container>
 			<md-input-container style="margin: 0">
 				<input formControlName="password" mdInput type="password" placeholder="Password">
+				<md-hint *ngIf="failed" align="end">Invalid username or password</md-hint>
 			</md-input-container>
-			<button class="btn" md-raised-button color="primary" type="submit" [disabled]="authForm.value.email.length === 0 || authForm.value.password.length === 0 || submitted">
+			<div>
+				<button style="margin-top: 1em" class="btn" md-raised-button color="primary" type="submit" [disabled]="authForm.value.email.length === 0 || authForm.value.password.length === 0 || submitted">
 				Login
 			</button>
+				<button style="margin-top: 1em" class="btn-invert" md-raised-button>
+				Reset
+			</button>
+			</div>
 		</form>
 	</div>
 </section>

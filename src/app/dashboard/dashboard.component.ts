@@ -4,13 +4,7 @@ import {
 } from '@angular/core';
 import { DataService } from './../services/data.service';
 import { AuthService } from './../services/auth.service';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { NgForm, FormBuilder, Validators, FormControlName, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -22,9 +16,17 @@ import { NgForm, FormBuilder, Validators, FormControlName, FormControl, FormGrou
 export class DashboardComponent implements OnInit {
   private isAuth: Boolean;
   private emailVerifyForm: FormGroup;
+  private accountData;
+  private fundingData;
+  private emailVerified = true;
   constructor(public data: DataService, public auth: AuthService, private fb: FormBuilder) {
     const context = this;
+
     auth.isAuth$.subscribe(auth => { context.isAuth = auth; });
+    data.account$.subscribe(data => { context.accountData = data; });
+    data.funding$.subscribe(data => { context.fundingData = data; });
+    data.emailVerified$.subscribe(data => { context.emailVerified = data; });
+    
   }
 
   public ngOnInit() {

@@ -1,17 +1,21 @@
 <section class="dashboard">
 	<div class='dashboardContainer inner-container'>
 		<h3>Next Steps</h3>
-		
-		<form [formGroup]="emailVerifyForm" (submit)="verifyEmail()">
-			<h5>Verify your email</h5>
+
+		<form *ngIf="!emailVerified" class="" [formGroup]="emailVerifyForm" (submit)="verifyEmail()">
+			<h4>Verify your email</h4>
 			<div>
 				<md-input-container style="margin: 0" required>
 					<input formControlName="pin" mdInput type="string" placeholder="6 Digit Pin" required>
 				</md-input-container>
-			</div>
-			<button class="btn" md-raised-button color="primary" type="submit" [disabled]="!emailVerifyForm.valid">
+				<button class="btn" md-raised-button color="primary" type="submit" [disabled]="!emailVerifyForm.valid">
 				Submit
 			</button>
+				<button class="btn-invert" md-raised-button (click)="resendVerifyEmail()">
+				Resend
+			</button>
+			</div>
+
 		</form>
 
 

@@ -50,10 +50,20 @@ export class DataService {
     public _fundingForm: fundingForm;
     private accountData: AccountData;
     private fundingData: FundingData;
-
+    private _account$: BehaviorSubject<any>;
+    private _funding$: BehaviorSubject<any>;
+    private emailVerified: boolean = true;
+    private _emailVerified$: BehaviorSubject<any>;
     constructor(private http: Http, public io: SocketService) {
-        io.socket.on('accountData', function (data) { this.accountData = data });
-        io.socket.on('fundingData', function (data) { this.fundingData = data }););
+        const context = this;
+        this._account$ = new BehaviorSubject(this.accountData);
+        this._funding$ = new BehaviorSubject(this.fundingData);
+        this._emailVerified$ = new BehaviorSubject(this.emailVerified);
+
+        io.socket.on('accountData', function (data) { context.accountData = data; if (context._account$) context._account$.next(data); });
+        io.socket.on('fundingData', function (data) { context.fundingData = data; if (context._funding$) context._funding$.next(data); });
+        io.socket.on('emailVerified', function (data) { context.emailVerified = data; context._emailVerified$.next(data); });
+
     }
 
     public accountForm(form: accountForm) {
@@ -83,5 +93,14 @@ export class DataService {
     public verifyBank(one: string, two: string) {
         if (one && two)
             this.io.socket.emit('verifyBank', { one, two });
+    }
+    get account$() {
+        return this._account$.asObservable();
+    }
+    get funding$() {
+        return this._funding$.asObservable();
+    }
+    get emailVerified$() {
+        return this._emailVerified$.asObservable();
     }
 }
